@@ -114,7 +114,7 @@ open class VGPlayer: NSObject {
     open fileprivate(set) var totalDuration : TimeInterval = 0.0
     open fileprivate(set) var currentDuration : TimeInterval = 0.0
     open fileprivate(set) var buffering : Bool = false
-    open fileprivate(set) var player : AVPlayer? {
+    open var player : AVPlayer? {
         willSet{
             removePlayerObservers()
         }
@@ -124,7 +124,7 @@ open class VGPlayer: NSObject {
     }
     private var timeObserver: Any?
     
-    open fileprivate(set) var playerItem : AVPlayerItem? {
+    open var playerItem : AVPlayerItem? {
         willSet {
             removePlayerItemObservers()
             removePlayerNotifations()
@@ -135,7 +135,7 @@ open class VGPlayer: NSObject {
         }
     }
     
-    open fileprivate(set) var playerAsset : AVURLAsset?
+    open var playerAsset : AVURLAsset?
     open fileprivate(set) var contentURL : URL?
     
     open fileprivate(set) var error : VGPlayerError
