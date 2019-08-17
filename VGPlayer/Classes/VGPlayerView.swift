@@ -242,6 +242,25 @@ open class VGPlayerView: UIView {
             hiddenControlAnimation()
         }
     }
+    
+    open func panGestureHorizontal(_ velocityX: CGFloat) -> TimeInterval {
+        displayControlView(true)
+        isTimeSliding = true
+        timer.invalidate()
+        let value = timeSlider.value
+        if let _ = vgPlayer?.currentDuration ,let totalDuration = vgPlayer?.totalDuration {
+            let sliderValue = (TimeInterval(value) *  totalDuration) + TimeInterval(velocityX) / 100.0 * (TimeInterval(totalDuration) / 400)
+            timeSlider.setValue(Float(sliderValue/totalDuration), animated: true)
+            return sliderValue
+        } else {
+            return TimeInterval.nan
+        }
+        
+    }
+    
+    open func panGestureVertical(_ velocityY: CGFloat) {
+        isVolume ? (volumeSlider.value -= Float(velocityY / 10000)) : (UIScreen.main.brightness -= velocityY / 10000)
+    }
 }
 
 // MARK: - public
@@ -520,25 +539,6 @@ extension VGPlayerView {
         }
     }
     
-    internal func panGestureHorizontal(_ velocityX: CGFloat) -> TimeInterval {
-        displayControlView(true)
-        isTimeSliding = true
-        timer.invalidate()
-        let value = timeSlider.value
-        if let _ = vgPlayer?.currentDuration ,let totalDuration = vgPlayer?.totalDuration {
-            let sliderValue = (TimeInterval(value) *  totalDuration) + TimeInterval(velocityX) / 100.0 * (TimeInterval(totalDuration) / 400)
-            timeSlider.setValue(Float(sliderValue/totalDuration), animated: true)
-            return sliderValue
-        } else {
-            return TimeInterval.nan
-        }
-        
-    }
-    
-    internal func panGestureVertical(_ velocityY: CGFloat) {
-        isVolume ? (volumeSlider.value -= Float(velocityY / 10000)) : (UIScreen.main.brightness -= velocityY / 10000)
-    }
-
     @objc internal func onCloseView(_ sender: UIButton) {
         delegate?.vgPlayerView(didTappedClose: self)
     }
