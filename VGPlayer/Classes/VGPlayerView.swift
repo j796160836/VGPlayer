@@ -261,6 +261,11 @@ open class VGPlayerView: UIView {
     open func panGestureVertical(_ velocityY: CGFloat) {
         isVolume ? (volumeSlider.value -= Float(velocityY / 10000)) : (UIScreen.main.brightness -= velocityY / 10000)
     }
+    
+    @objc open func onReplay(_ sender: UIButton) {
+        vgPlayer?.replaceVideo((vgPlayer?.contentURL)!)
+        vgPlayer?.play()
+    }
 }
 
 // MARK: - public
@@ -541,11 +546,6 @@ extension VGPlayerView {
     
     @objc internal func onCloseView(_ sender: UIButton) {
         delegate?.vgPlayerView(didTappedClose: self)
-    }
-    
-    @objc internal func onReplay(_ sender: UIButton) {
-        vgPlayer?.replaceVideo((vgPlayer?.contentURL)!)
-        vgPlayer?.play()
     }
     
     @objc internal func deviceOrientationWillChange(_ sender: Notification) {

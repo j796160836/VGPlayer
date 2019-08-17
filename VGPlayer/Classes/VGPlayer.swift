@@ -110,7 +110,7 @@ open class VGPlayer: NSObject {
     open var bufferInterval : TimeInterval = 2.0
     open weak var delegate : VGPlayerDelegate?
     
-    open fileprivate(set) var mediaFormat : VGPlayerMediaFormat
+    open var mediaFormat : VGPlayerMediaFormat
     open fileprivate(set) var totalDuration : TimeInterval = 0.0
     open fileprivate(set) var currentDuration : TimeInterval = 0.0
     open fileprivate(set) var buffering : Bool = false
@@ -136,7 +136,7 @@ open class VGPlayer: NSObject {
     }
     
     open var playerAsset : AVURLAsset?
-    open fileprivate(set) var contentURL : URL?
+    open var contentURL : URL?
     
     open fileprivate(set) var error : VGPlayerError
     
@@ -372,7 +372,7 @@ extension VGPlayer {
         if let playerLayer = displayView.playerLayer  {
             playerLayer.player = nil
         }
-
+        
         switch self.backgroundMode {
         case .suspend:
             pause()
