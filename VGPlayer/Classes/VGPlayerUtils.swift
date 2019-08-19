@@ -18,7 +18,7 @@ public enum VGPlayerMediaFormat : String{
 }
 
 
-class VGPlayerUtils: NSObject {
+open class VGPlayerUtils: NSObject {
     static public func playerBundle() -> Bundle {
         return Bundle(for: VGPlayer.self)
     }
@@ -42,7 +42,7 @@ class VGPlayerUtils: NSObject {
         return newImage;
     }
     
-    static func decoderVideoFormat(_ URL: URL?) -> VGPlayerMediaFormat {
+    open static func decoderVideoFormat(_ URL: URL?) -> VGPlayerMediaFormat {
         if URL == nil {
            return .error
         }
